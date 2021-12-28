@@ -1,0 +1,4 @@
+Options -Indexes
+RewriteEngine On # Turn on the rewriting engine
+RewriteRule ^Laundry/?$ Laundry.php [NC,L]
+RewriteRule ^Laundry/([0-9]+)/?$ Laundry.php?id=$1 [NC,L]
