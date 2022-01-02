@@ -33,38 +33,24 @@ class LaundryController
     public function create()
     {
         global $conn;
-        $validation = array(
-            'id' => '',
-            'name' => '',
-            'address' => '',
-            'phone' => '',
-        );
-        $check = count(array_intersect_key($_POST, $validation));
-
-        if ($check == count($validation)) {
-            $query = "INSERT INTO tbl_laundry VALUES (null,'$_POST[name]','$_POST[address]','$_POST[phone]')";
-            $result = $conn->query($query);
-
-            //check
-            if ($result) {
-                $response = array(
-                    'status' => 1,
-                    'message' => 'Success add new data'
-                );
-            } else {
-                $response = array(
-                    'status' => 0,
-                    'message' => 'Failed add new data'
-                );
-            }
+        $name = $_POST['name'];
+        $address = $_POST['address'];
+        $phone = $_POST['phone'];
+        $query = "INSERT INTO `tbl_laundry` (`id`, `name`, `address`, `phone`) VALUES (NULL, '$name', '$address', '$phone');";
+        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        //check
+        if ($result) {
+            $response = array(
+                'status' => 1,
+                'message' => 'Success create data'
+            );
         } else {
             $response = array(
                 'status' => 0,
-                'message' => 'Parameter do not match'
+                'message' => 'Failed create data'
             );
         }
-
-        header('Content-type: application/json');
+        header('Content-Type: application/json');
         echo json_encode($response);
     }
     /**
@@ -100,38 +86,24 @@ class LaundryController
     public function update($id)
     {
         global $conn;
-        $validation = array(
-            'id' => '',
-            'name' => '',
-            'address' => '',
-            'phone' => '',
-        );
-        $check = count(array_intersect_key($_POST, $validation));
-
-        if ($check == count($validation)) {
-            $query = "UPDATE tbl_laundry SET name='$_POST[name]', address='$_POST[address]', phone='$_POST[phone]' WHERE id='$id'";
-            $result = $conn->query($query);
-
-            //check
-            if ($result) {
-                $response = array(
-                    'status' => 1,
-                    'message' => 'Success update data'
-                );
-            } else {
-                $response = array(
-                    'status' => 0,
-                    'message' => 'Failed update data'
-                );
-            }
+        $name = $_POST['name'];
+        $address =$_POST['address'];
+        $phone = $_POST['phone'];
+        $query = "UPDATE tbl_laundry SET name='$name', address='$address', phone='$phone' where id='$id'";
+        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        //check
+        if ($result) {
+            $response = array(
+                'status' => 1,
+                'message' => 'Success update data'
+            );
         } else {
             $response = array(
                 'status' => 0,
-                'message' => 'Parameter do not match'
+                'message' => 'Failed update data'
             );
         }
-
-        header('Content-type: application/json');
+        header('Content-Type: application/json');
         echo json_encode($response);
     }
 

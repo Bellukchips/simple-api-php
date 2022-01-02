@@ -15,12 +15,15 @@ switch ($method) {
         }else{
             $laundry->create();
         }
+        break;
     case 'PUT':
         $id = intval($_GET['id']);
         $laundry->edit($id);
+        break;
     case 'DELETE':
         $id = intval($_GET['id']);
         $laundry->destroy($id);
+        break;
     default:
         // Invalid Request Method
         header("HTTP/1.0 405 Method Not Allowed");
